@@ -52,7 +52,7 @@ private:
 	TObjectPtr<UCameraComponent> FirstPersonCameraComponent;
 
 	// Data asset containing the input actions for this character
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UInputData> InputData;
 };
 
