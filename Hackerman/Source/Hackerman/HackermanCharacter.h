@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+#include "Public/ACPlayerSuspicion.h"
 #include "HackermanCharacter.generated.h"
 
 class UInputComponent;
@@ -12,6 +13,7 @@ class USkeletalMeshComponent;
 class UCameraComponent;
 class UInputAction;
 class UInputMappingContext;
+class UACPlayerSuspicion;
 struct FInputActionValue;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
@@ -28,6 +30,18 @@ public:
 	USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
+
+
+	// SUSPICION DEBUG
+	UFUNCTION(exec)
+	void ToggleSuspicionDebugLogs() { SuspicionComponent->ToggleDebugLogging(); }
+	UFUNCTION(exec)
+	void AddSuspicion(float inSuspicion) { SuspicionComponent->AddSuspicion(inSuspicion); }
+	UFUNCTION(exec)
+	void SetSuspicionDeclineRate(float inNewDeclineRate) { SuspicionComponent->SetDeclineRate(inNewDeclineRate); }
+
+	UFUNCTION(exec)
+	void AddSuspicionModifier(ESuspicionModifierType inType, float inValue, float inDuration);
 
 protected:
 	virtual void BeginPlay();
@@ -54,5 +68,9 @@ private:
 	// Data asset containing the input actions for this character
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UInputData> InputData;
+
+	// Data asset containing the input actions for this character
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<class UACPlayerSuspicion> SuspicionComponent;
 };
 
