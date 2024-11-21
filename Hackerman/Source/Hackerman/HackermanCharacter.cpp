@@ -38,6 +38,8 @@ AHackermanCharacter::AHackermanCharacter()
 	//Mesh1P->SetRelativeRotation(FRotator(0.9f, -19.19f, 5.2f));
 	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
 
+	SuspicionComponent = CreateDefaultSubobject<UACPlayerSuspicion>(TEXT("PlayerSuspicion"));
+
 }
 
 void AHackermanCharacter::BeginPlay()
@@ -96,4 +98,17 @@ void AHackermanCharacter::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+
+
+void AHackermanCharacter::AddSuspicionModifier(ESuspicionModifierType inType, float inValue, float inDuration)
+{
+	FSuspicionModifier modifier;
+	modifier.ModifierType = inType;
+	modifier.ModifierValue = inValue;
+	modifier.ModifierDuration = inDuration;
+	modifier.TimeStamp = FDateTime::Now();
+
+	SuspicionComponent->AddModifier(modifier);
 }
