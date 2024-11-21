@@ -27,18 +27,18 @@ struct HACKERMAN_API FSuspicionModifier
 
 	bool operator==(const FSuspicionModifier& other) const
 	{
-		if (mTimeStamp == other.mTimeStamp && mModifierType == other.mModifierType)
+		if (TimeStamp == other.TimeStamp && ModifierType == other.ModifierType)
 			return true;
 		return false;
 	}
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	ESuspicionModifierType mModifierType;
+	ESuspicionModifierType ModifierType;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float mModifierValue;
+	float ModifierValue;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float mModifierDuration;
+	float ModifierDuration;
 
-	FDateTime mTimeStamp;
+	FDateTime TimeStamp;
 };

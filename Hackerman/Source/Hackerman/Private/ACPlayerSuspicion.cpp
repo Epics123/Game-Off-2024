@@ -31,57 +31,57 @@ void UACPlayerSuspicion::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 
 
 	// This logic may need to be changed but for now we are going to handle modiers in the order they are added. 
-	for (FSuspicionModifier& modifier : mModifiers)
+	for (FSuspicionModifier& modifier : Modifiers)
 	{
 		FDateTime current_time = FDateTime::Now();
-		if ( (current_time - modifier.mTimeStamp).GetTotalSeconds() > modifier.mModifierDuration)
+		if ( (current_time - modifier.TimeStamp).GetTotalSeconds() > modifier.ModifierDuration)
 		{
-			mModifiers.RemoveSingle(modifier);
+			Modifiers.RemoveSingle(modifier);
 		}
 
 		//FString type;
-		switch (modifier.mModifierType)
+		switch (modifier.ModifierType)
 		{
 		case ESuspicionModifierType::Add:
-			mPendingSuspicion += modifier.mModifierValue;
+			PendingSuspicion += modifier.ModifierValue;
 			//type = "Add";
 			break;
 		case ESuspicionModifierType::Subtract:
-			mPendingSuspicion -= modifier.mModifierValue;
+			PendingSuspicion -= modifier.ModifierValue;
 			//type = "Subtract";
 			break;
 		case ESuspicionModifierType::Multiply:
-			mPendingSuspicion *= modifier.mModifierValue;
+			PendingSuspicion *= modifier.ModifierValue;
 			//type = "Multiply";
 			break;
 		case ESuspicionModifierType::Divide:
-			mPendingSuspicion -= modifier.mModifierValue;
+			PendingSuspicion -= modifier.ModifierValue;
 			//type = "Divide";
 			break;
 		case ESuspicionModifierType::Invalid:
 		default:
 			// Remove this because its invalid and cannot be processed
-			mModifiers.RemoveSingle(modifier); 
+			Modifiers.RemoveSingle(modifier); 
 			break;
 		}
 
-		if (mDebugLogging)
+		if (DebugLogging)
 		{
 			//FString str = FString::Printf(TEXT("Modifier %s"), TEXT(type));
 		}
 	}
 
 	// Add suspicion
-	mSuspicionLevel = FMath::Clamp(mSuspicionLevel + mPendingSuspicion * DeltaTime * 100, 0.0, 100);
-	mPendingSuspicion = 0.0; // Reset pending suspicion for next frame
+	SuspicionLevel = FMath::Clamp(SuspicionLevel + PendingSuspicion * DeltaTime * 100, 0.0, 100);
+	PendingSuspicion = 0.0; // Reset pending suspicion for next frame
 
 	// Standard decline, maybe we want to handle this differently?
-	mSuspicionLevel = FMath::Clamp(mSuspicionLevel - mSuspicionDeclineRate, 0.0, 100);
+	SuspicionLevel = FMath::Clamp(SuspicionLevel - SuspicionDeclineRate, 0.0, 100);
 
-	if (mDebugLogging && GEngine)
+	if (DebugLogging && GEngine)
 	{
 		GEngine->ClearOnScreenDebugMessages();
-		FString TheFloatStr = FString::SanitizeFloat(mSuspicionLevel);
+		FString TheFloatStr = FString::SanitizeFloat(SuspicionLevel);
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, *TheFloatStr);
 	}
 }

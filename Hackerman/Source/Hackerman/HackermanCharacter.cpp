@@ -105,10 +105,10 @@ void AHackermanCharacter::Look(const FInputActionValue& Value)
 void AHackermanCharacter::AddSuspicionModifier(ESuspicionModifierType inType, float inValue, float inDuration)
 {
 	FSuspicionModifier modifier;
-	modifier.mModifierType = inType;
-	modifier.mModifierValue = inValue;
-	modifier.mModifierDuration = inDuration;
-	modifier.mTimeStamp = FDateTime::Now();
+	modifier.ModifierType = inType;
+	modifier.ModifierValue = inValue;
+	modifier.ModifierDuration = inDuration;
+	modifier.TimeStamp = FDateTime::Now();
 
 	SuspicionComponent->AddModifier(modifier);
 }

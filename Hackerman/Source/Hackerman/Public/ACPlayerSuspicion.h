@@ -26,22 +26,22 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 
-	void AddSuspicion(float inSuspicion) { mPendingSuspicion += inSuspicion; }
-	void RemoveSuspicion(float inSuspicion) { mPendingSuspicion -= inSuspicion; }
-	void SetDeclineRate(float inNewDeclineRate) { mSuspicionDeclineRate = inNewDeclineRate; }
+	void AddSuspicion(float inSuspicion) { PendingSuspicion += inSuspicion; }
+	void RemoveSuspicion(float inSuspicion) { PendingSuspicion -= inSuspicion; }
+	void SetDeclineRate(float inNewDeclineRate) { SuspicionDeclineRate = inNewDeclineRate; }
 
-	void AddModifier(FSuspicionModifier inModifier) { mModifiers.Add(inModifier); }
+	void AddModifier(FSuspicionModifier inModifier) { Modifiers.Add(inModifier); }
 
-	void ToggleDebugLogging() { mDebugLogging = !mDebugLogging; }
+	void ToggleDebugLogging() { DebugLogging = !DebugLogging; }
 
 private:
-	float	mSuspicionLevel = 0.0;
-	float	mSuspicionDeclineRate = 0.2;
+	float	SuspicionLevel = 0.0;
+	float	SuspicionDeclineRate = 0.2;
 
-	float	mPendingSuspicion = 0.0;
+	float	PendingSuspicion = 0.0;
 
-	bool	mDebugLogging = false;
+	bool	DebugLogging = false;
 
-	TArray<FSuspicionModifier> mModifiers;
+	TArray<FSuspicionModifier> Modifiers;
 
 };
