@@ -1,0 +1,3 @@
+[submodule "BasicGolangLeaderBoard"]
+	path = BasicGolangLeaderBoard
+	url = https://github.com/chrisfoster121/BasicGolangLeaderBoard.git
