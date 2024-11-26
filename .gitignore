@@ -1,2 +1,11 @@
 
 /Hackerman/Content/__ExternalActors__
+
+#GO/GRPC
+*.pb.go
+#*.mod
+#*.sum
+
+#terraform
+.terraform*
+*.tfstate*
